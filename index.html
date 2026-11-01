@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Link</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      color: #20243a;
+    }
+
+    header {
+      background: #5141c9;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 25px auto;
+      padding: 12px;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px #0000000d;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font-size: 15px;
+      resize: vertical;
+    }
+
+    button {
+      background: #5141c9;
+      color: white;
+      border: none;
+      padding: 11px 17px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .post {
+      overflow-wrap: anywhere;
+    }
+
+    .post small {
+      color: #777;
+    }
+
+    .like {
+      background: #eeeaff;
+      color: #5141c9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Social Link 🌍</h1>
+    <p>Connecte-toi au monde !</p>
+  </header>
+
+  <main>
+
+    <section class="card">
+      <h2>Créer une publication</h2>
+
+      <textarea
+        id="message"
+        placeholder="Quoi de neuf aujourd'hui ?"
+      ></textarea>
+
+      <button onclick="publier()">Publier</button>
+    </section>
+
+    <h2>Fil d'actualité</h2>
+
+    <section id="publications">
+      <div class="card">
+        <h3>Bienvenue sur Social Link !</h3>
+        <p>Ton nouveau réseau social commence ici.</p>
+        <small>Social Link</small>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Social Link - Tous droits réservés
+  </footer>
+
+  <script>
+    function publier() {
+      const zone = document.getElementById("message");
+      const texte = zone.value.trim();
+
+      if (texte === "") {
+        alert("Écris un message avant de publier !");
+        return;
+      }
+
+      const publication = document.createElement("div");
+      publication.className = "card post";
+
+      const titre = document.createElement("h3");
+      titre.textContent = "Utilisateur";
+
+      const contenu = document.createElement("p");
+      contenu.textContent = texte;
+
+      const date = document.createElement("small");
+      date.textContent = new Date().toLocaleString("fr-FR");
+
+      const boutonLike = document.createElement("button");
+      boutonLike.className = "like";
+      boutonLike.textContent = "♡ J'aime (0)";
+
+      let aime = false;
+      let nombreLikes = 0;
+
+      boutonLike.onclick = function() {
+        aime = !aime;
+        nombreLikes += aime ? 1 : -1;
+
+        boutonLike.textContent =
+          (aime ? "♥ Aimé (" : "♡ J'aime (")
+          + nombreLikes + ")";
+      };
+
+      publication.appendChild(titre);
+      publication.appendChild(contenu);
+      publication.appendChild(date);
+      publication.appendChild(document.createElement("br"));
+      publication.appendChild(boutonLike);
+
+      document.getElementById("publications")
+        .prepend(publication);
+
+      zone.value = "";
+    }
+  </script>
+
+</body>
+</html>
